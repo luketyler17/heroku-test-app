@@ -1,7 +1,6 @@
-import { Card, Paper } from "@mui/material"
-import {FiDelete} from 'react-icons/fi'
-import {GrDocumentUpdate} from 'react-icons/gr'
+import { Card } from "@mui/material"
 import {Button} from "@mui/material"
+
 const IndividualItems = ({ item }) => {
     if(item.Description.length > 100) {
         let newdescription = item.Description.slice(0, 100);

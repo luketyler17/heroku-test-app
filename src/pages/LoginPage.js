@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState } from 'react';
 import { TextField } from '@mui/material';
 import { Card, Button } from '@mui/material';
-import Header from '../components/header';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();

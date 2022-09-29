@@ -3,12 +3,7 @@ import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/DeleteOutlined';
-import SaveIcon from '@mui/icons-material/Save';
 import PageviewIcon from '@mui/icons-material/Pageview';
-import CancelIcon from '@mui/icons-material/Close';
 import {
     GridRowModes,
     DataGrid,
@@ -16,9 +11,6 @@ import {
     GridActionsCellItem,
 } from '@mui/x-data-grid';
 import {
-    randomCreatedDate,
-    randomTraderName,
-    randomUpdatedDate,
     randomId,
 } from '@mui/x-data-grid-generator';
 import { Modal, Typography, TextField } from '@mui/material';

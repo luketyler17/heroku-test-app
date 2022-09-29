@@ -1,21 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Button, Grid } from '@mui/material';
-import { AiFillCloseCircle } from 'react-icons/ai'
-import { TextField } from '@mui/material';
-import { Input } from '@mui/material';
-import AddButton from '../components/addButton';
-import DeleteButton from '../components/deleteButton';
-import IndividualItems from '../components/IndividualItems';
+import { Grid } from '@mui/material';
 import FullFeaturedCrudGrid from '../components/dataGrid';
 import Cookies from 'universal-cookie';
-import {Card} from '@mui/material'
 import { useNavigate } from 'react-router-dom';
-import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
-import SaveIcon from '@mui/icons-material/Save';
 import PageviewIcon from '@mui/icons-material/Pageview';
-import CancelIcon from '@mui/icons-material/Close';
 import Dropdown from '../components/dropdown';
 
 const ViewDetails = () => {

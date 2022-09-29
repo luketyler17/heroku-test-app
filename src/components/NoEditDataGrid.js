@@ -3,12 +3,7 @@ import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/DeleteOutlined';
-import SaveIcon from '@mui/icons-material/Save';
 import PageviewIcon from '@mui/icons-material/Pageview';
-import CancelIcon from '@mui/icons-material/Close';
 import {
     GridRowModes,
     DataGrid,
@@ -16,9 +11,6 @@ import {
     GridActionsCellItem,
 } from '@mui/x-data-grid';
 import {
-    randomCreatedDate,
-    randomTraderName,
-    randomUpdatedDate,
     randomId,
 } from '@mui/x-data-grid-generator';
 import { Modal, Typography, TextField } from '@mui/material';
@@ -58,9 +50,6 @@ function EditToolbar(props) {
 
     return (
         <GridToolbarContainer>
-            <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-                Add record
-            </Button>
         </GridToolbarContainer>
     );
 }
@@ -70,19 +59,14 @@ EditToolbar.propTypes = {
     setRows: PropTypes.func.isRequired,
 };
 
-export default function FullFeaturedCrudGrid({ token }) {
+export default function NoEditGrid({}) {
     const [rows, setRows] = React.useState(initialRows);
     const [rowModesModel, setRowModesModel] = React.useState({});
     const [oldChange, setChange] = useState(false)
-    const [oldRows, setOldRows] = useState([])
     const [toggle, setToggle] = useState(false)
-    const [editFlag, setEditFlag] = useState(false)
-    const [editId, setEditId] = useState(0)
-    const [count, setCount] = useState(0)
     const [open, setOpen] = useState(false)
     const [modalInfo, setModalInfo] = useState(undefined)
     const [confirmation, setConfirmation] = useState(false)
-    const [confirmationInfo, setConfirmationInfo] = useState(false)
     const [editField, setEdit] = useState(undefined)
     const [editInfo, setEditInfo] = useState(undefined)
     const [updatedQuantity, setUpdatedQuantity] = useState(undefined)
@@ -93,35 +77,10 @@ export default function FullFeaturedCrudGrid({ token }) {
     const editClose = () => setEdit(false);
 
     useEffect(() => {
-        fetch('https://ussf-z-prefix-tyler-api.herokuapp.com/inventory/seeitem', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                UserId: token[0].id
-            })
-        }
-        ).then(res => res.json())
-            .then(data => setRows(data))
+        fetch('https://ussf-z-prefix-tyler-api.herokuapp.com/inventory/')
+        .then(res => res.json())
+        .then(data => setRows(data))
     }, [toggle])
-
-    const handleRowEditStart = (params, event) => {
-        event.defaultMuiPrevented = true;
-        console.log("edit start", rows)
-    };
-
-    const handleRowEditStop = (params, event) => {
-        event.defaultMuiPrevented = true;
-        console.log("edit stop", rows)
-
-    };
-
-    const handleEditClick = (id) => () => {
-        let newRow = rows.filter((row) => row.id == id)
-        setEditId(id)
-        setEditFlag(true)
-        setEdit(true)
-        setEditInfo(newRow)
-    };
 
     const handleViewClick = (id) => () => {
         let newRow = rows.filter((row) => row.id == id)
@@ -129,56 +88,9 @@ export default function FullFeaturedCrudGrid({ token }) {
         setOpen(true)
 
     }
-
-    const handleSaveClick = (id) => () => {
-        setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
-        setChange(true);
-        setToggle((!toggle))
-    };
-
-    const handleDeleteClick = (id) => () => {
-        let newRow = rows.filter((row) => row.id == id)
-        setConfirmationInfo(newRow)
-        setConfirmation(true);
-
-    };
     const handleDelete = () => {
-        console.log("here")
-        setRows(rows.filter((row) => row.id !== confirmationInfo[0].id));
-        console.log()
-        confirmationClose()
-        fetch('https://ussf-z-prefix-tyler-api.herokuapp.com/inventory', {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                UserId: token[0].id,
-                Quantity: confirmationInfo[0].Quantity,
-                ItemName: confirmationInfo[0].ItemName,
-                Description: confirmationInfo[0].Description,
-            })
-        }).then(() => setToggle(!toggle))
     }
     const handleEdit = () => {
-        console.log("here edit")
-        let newRow = {
-            UserId: token[0].id,
-            Quantity: updatedQuantity,
-            ItemName: editInfo[0].ItemName,
-            Description: updatedDescription
-        }
-        console.log(newRow);
-        fetch('https://ussf-z-prefix-tyler-api.herokuapp.com/inventory/', {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                UserId: newRow.UserId,
-                Quantity: newRow.Quantity,
-                ItemName: newRow.ItemName,
-                Description: newRow.Description
-            })
-        }).then(data => data.json).then(data => console.log(data)).then(() => setToggle(!toggle))
-        editClose()
-        setToggle(!toggle);
     }
     const quantityHandler= (e) => {
         setUpdatedQuantity(e.target.value)
@@ -186,18 +98,6 @@ export default function FullFeaturedCrudGrid({ token }) {
     const descriptionHandler= (e) => {
         setUpdatedDesciption(e.target.value)
     }
-
-    const handleCancelClick = (id) => () => {
-        setRowModesModel({
-            ...rowModesModel,
-            [id]: { mode: GridRowModes.View, ignoreModifications: true },
-        });
-
-        const editedRow = rows.find((row) => row.id === id);
-        if (editedRow.isNew) {
-            setRows(rows.filter((row) => row.id !== id));
-        }
-    };
 
     const processRowUpdate = (newRow) => {
         const updatedRow = { ...newRow, isNew: false };
@@ -226,22 +126,9 @@ export default function FullFeaturedCrudGrid({ token }) {
                 if (isInEditMode) {
                     return [
                         <GridActionsCellItem
-                            icon={<SaveIcon />}
-                            label="Save"
-                            onClick={handleSaveClick(id)}
-                        />,
-                        <GridActionsCellItem
                             icon={<PageviewIcon />}
                             label="view"
                             onClick={handleViewClick(id)}
-                            color="inherit"
-                        />,
-
-                        <GridActionsCellItem
-                            icon={<CancelIcon />}
-                            label="Cancel"
-                            className="textPrimary"
-                            onClick={handleCancelClick(id)}
                             color="inherit"
                         />,
                     ];
@@ -249,25 +136,11 @@ export default function FullFeaturedCrudGrid({ token }) {
 
                 return [
                     <GridActionsCellItem
-                        icon={<EditIcon />}
-                        label="Edit"
-                        className="textPrimary"
-                        onClick={handleEditClick(id)}
-                        color="inherit"
-                    />,
-                    <GridActionsCellItem
                         icon={<PageviewIcon />}
                         label="view"
                         onClick={handleViewClick(id)}
                         color="inherit"
                     />,
-                    <GridActionsCellItem
-                        icon={<DeleteIcon />}
-                        label="Delete"
-                        onClick={handleDeleteClick(id)}
-                        color="inherit"
-                    />,
-
                 ];
             },
         },
@@ -282,7 +155,7 @@ export default function FullFeaturedCrudGrid({ token }) {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    UserId: token[0].id,
+    
                     Quantity: newRow.Quantity,
                     ItemName: newRow.ItemName,
                     Description: newRow.Description,
@@ -313,8 +186,6 @@ export default function FullFeaturedCrudGrid({ token }) {
                     columns={columns}
                     editMode="row"
                     rowModesModel={rowModesModel}
-                    onRowEditStart={handleRowEditStart}
-                    onRowEditStop={handleRowEditStop}
                     processRowUpdate={processRowUpdate}
                     components={{
                         Toolbar: EditToolbar,
