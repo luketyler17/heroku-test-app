@@ -17,8 +17,6 @@ function App() {
         <Header />
         <Routes>
           <Route path='/' element={<LandingPage/>} />
-          <Route path='/login' element={<LoginPage setToken={setToken} />} />
-          <Route path='/details' element={<ViewDetails />} />
         </Routes>
       </Router>
     </div>
