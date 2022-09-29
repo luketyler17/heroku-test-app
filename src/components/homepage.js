@@ -1,21 +1,26 @@
 import logo from '../logo.svg';
 const HomePage = () => {
     return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                    Edit <code>src/App.js</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-            </header>
+        <div>
+            <Grid style={{
+                display: 'flex',
+                justifyContent: 'center',
+                height: 'auto',
+                width: 'auto',
+                margin: '50px',
+            }}>
+                Welcome! Please log into to access editable attributes
+            </Grid>
+
+            <Grid style={{
+                display: 'flex',
+                justifyContent: 'center',
+                height: 'auto',
+                width: '55%',
+                margin: '0 auto',
+            }}>
+                < NoEditGrid />
+            </Grid>
         </div>
     )
 }
