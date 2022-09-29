@@ -88,7 +88,7 @@ export default function NoEditGrid({}) {
         fetch('https://ussf-z-prefix-tyler-api.herokuapp.com/inventory/')
         .then(res => res.json())
         .then(data => setRows(data))
-    }, [toggle])
+    }, [])
 
     const handleViewClick = (id) => () => {
         let newRow = rows.filter((row) => row.id == id)
