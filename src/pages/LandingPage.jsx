@@ -1,13 +1,7 @@
 import React from "react";
-import NoEditGrid from "../components/noEditDataGrid";
+import NoEditGrid from "../components/NoEditDataGrid";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import Cookies from 'universal-cookie';
-import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/DeleteOutlined';
-import SaveIcon from '@mui/icons-material/Save';
-import PageviewIcon from '@mui/icons-material/Pageview';
-import CancelIcon from '@mui/icons-material/Close';
 
 const cookies = new Cookies();
 

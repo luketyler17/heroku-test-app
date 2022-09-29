@@ -1,15 +1,26 @@
 import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import HomePage from './components/homepage';
+import React, { useState, useEffect, useContext } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
+import ViewDetails from './pages/ViewDetails';
+import Header from './components/header';
+import LandingPage from './pages/LandingPage';
+
+
 function App() {
+  const [token, setToken] = useState(undefined)
+
   return (
-    <>
+    <div className='wrapper'>
       <Router>
+        <Header />
         <Routes>
-          <Route path='/' element={<HomePage />} />
+          <Route path='/' element={<LandingPage/>} />
+          <Route path='/login' element={<LoginPage setToken={setToken} />} />
+          <Route path='/details' element={<ViewDetails />} />
         </Routes>
       </Router>
-    </>
+    </div>
   );
 }
 

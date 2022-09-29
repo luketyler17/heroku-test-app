@@ -3,12 +3,7 @@ import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/DeleteOutlined';
-import SaveIcon from '@mui/icons-material/Save';
 import PageviewIcon from '@mui/icons-material/Pageview';
-import CancelIcon from '@mui/icons-material/Close';
 import {
     GridRowModes,
     DataGrid,
@@ -16,9 +11,6 @@ import {
     GridActionsCellItem,
 } from '@mui/x-data-grid';
 import {
-    randomCreatedDate,
-    randomTraderName,
-    randomUpdatedDate,
     randomId,
 } from '@mui/x-data-grid-generator';
 import { Modal, Typography, TextField } from '@mui/material';
@@ -71,10 +63,15 @@ export default function NoEditGrid({}) {
     const [rows, setRows] = React.useState(initialRows);
     const [rowModesModel, setRowModesModel] = React.useState({});
     const [oldChange, setChange] = useState(false)
+    const [oldRows, setOldRows] = useState([])
     const [toggle, setToggle] = useState(false)
+    const [editFlag, setEditFlag] = useState(false)
+    const [editId, setEditId] = useState(0)
+    const [count, setCount] = useState(0)
     const [open, setOpen] = useState(false)
     const [modalInfo, setModalInfo] = useState(undefined)
     const [confirmation, setConfirmation] = useState(false)
+    const [confirmationInfo, setConfirmationInfo] = useState(false)
     const [editField, setEdit] = useState(undefined)
     const [editInfo, setEditInfo] = useState(undefined)
     const [updatedQuantity, setUpdatedQuantity] = useState(undefined)
@@ -88,7 +85,7 @@ export default function NoEditGrid({}) {
         fetch('https://ussf-z-prefix-tyler-api.herokuapp.com/inventory/')
         .then(res => res.json())
         .then(data => setRows(data))
-    }, [])
+    }, [toggle])
 
     const handleViewClick = (id) => () => {
         let newRow = rows.filter((row) => row.id == id)
@@ -154,6 +151,26 @@ export default function NoEditGrid({}) {
         },
     ];
 
+
+    if (oldChange == true) {
+        let length = rows.length;
+        let newRow = rows[(length - 1)];
+        if (newRow.ItemName.length > 0) {
+            fetch("https://ussf-z-prefix-tyler-api.herokuapp.com/inventory/additem", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+    
+                    Quantity: newRow.Quantity,
+                    ItemName: newRow.ItemName,
+                    Description: newRow.Description,
+                })
+            }).then(data => data.json).then(data => console.log(data)).then(() => {
+                setChange(false)
+                setToggle((!toggle))
+            })
+        }
+    }
     return (
         <>
             <Box
