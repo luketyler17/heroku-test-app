@@ -1,4 +1,4 @@
-
+import logo from '../logo.svg';
 const HomePage = () => {
     return (
         <div className="App">
