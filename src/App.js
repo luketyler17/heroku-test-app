@@ -9,6 +9,8 @@ import LandingPage from './pages/LandingPage';
 
 
 function App() {
+  const [token, setToken] = useState(undefined)
+
   return (
     <div className='wrapper'>
       <Router>
