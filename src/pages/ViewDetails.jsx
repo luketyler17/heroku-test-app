@@ -7,6 +7,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import PageviewIcon from '@mui/icons-material/Pageview';
 import Dropdown from '../components/dropdown';
+import SaveIcon from '@mui/icons-material/Save';
 
 const ViewDetails = () => {
     const cookies = new Cookies();
@@ -71,6 +72,7 @@ const ViewDetails = () => {
                             <p>Edit Item: <EditIcon /></p>
                             <p>View Details: <PageviewIcon /></p>
                             <p>Delete Item: <DeleteIcon /></p>
+                            <p>Save Item: <SaveIcon /></p>
                         </Card>
                     </div>
                     <FullFeaturedCrudGrid inputRows={items} token={token} style={{
