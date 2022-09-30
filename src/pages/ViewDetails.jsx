@@ -85,7 +85,8 @@ const ViewDetails = () => {
                         justifyContent: 'center',
                         alignItems: 'center',
                         flexWrap: 'wrap',
-                        alightText: 'center'
+                        alightText: 'center',
+                        marginBottom: '150px'
                     }}>
                         <h1 style={{
                             display: 'flex',

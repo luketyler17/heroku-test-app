@@ -185,6 +185,7 @@ const DrilledDownGrid = ({token}) => {
                         color: 'text.primary',
                     },
                     backgroundColor: 'white',
+                    
                 }}
             >
                 <DataGrid
