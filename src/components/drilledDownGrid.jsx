@@ -64,20 +64,14 @@ const DrilledDownGrid = ({token}) => {
     const [rows, setRows] = React.useState(initialRows);
     const [rowModesModel, setRowModesModel] = React.useState({});
     const [oldChange, setChange] = useState(false)
-    const [oldRows, setOldRows] = useState([])
     const [toggle, setToggle] = useState(false)
-    const [editFlag, setEditFlag] = useState(false)
-    const [editId, setEditId] = useState(0)
-    const [count, setCount] = useState(0)
     const [open, setOpen] = useState(false)
     const [modalInfo, setModalInfo] = useState(undefined)
     const [confirmation, setConfirmation] = useState(false)
-    const [confirmationInfo, setConfirmationInfo] = useState(false)
     const [editField, setEdit] = useState(undefined)
     const [editInfo, setEditInfo] = useState(undefined)
-    const [updatedQuantity, setUpdatedQuantity] = useState(undefined)
-    const [updatedDescription, setUpdatedDesciption] = useState(undefined)
-
+    const [updatedQuantity, setUpdatedQuantity] = useState(undefined);
+    const [updatedDescription, setUpdatedDesciption] = useState(undefined);
     const modalClose = () => setOpen(false);
     const confirmationClose = () => setConfirmation(false);
     const editClose = () => setEdit(false);

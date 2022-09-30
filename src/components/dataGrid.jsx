@@ -277,6 +277,7 @@ export default function FullFeaturedCrudGrid({ token }) {
     if (oldChange == true) {
         let length = rows.length;
         let newRow = rows[(length - 1)];
+        console.log(newRow)
         if (newRow.ItemName.length > 0) {
             fetch("https://ussf-z-prefix-tyler-api.herokuapp.com/inventory/additem", {
                 method: 'POST',
