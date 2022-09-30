@@ -49,7 +49,7 @@ const Dropdown = () => {
         <div style={{
                 display: 'flex',
                 height: 'auto',
-                width: '52%',
+                width: '100%',
                 margin: '0 auto',
             }}>{drilledData != undefined ? (<DrilledDownGrid token={drilledData}/>) : (<></>)}</div>
         </>
